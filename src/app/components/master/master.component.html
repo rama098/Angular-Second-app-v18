@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-12">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" (click)="changeBtn('Roles')" class="btn"
+                    [ngClass]="currComponent=='Roles'?'btn-success':'btn-primary'">Roles</button>
+
+
+                <button type="button" (click)="changeBtn('Design')" class="btn"
+                    [ngClass]="currComponent=='Design'?'btn-success':'btn-primary'">Designations</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="row pt-2">
+    <div class="col-12" *ngIf="currComponent=='Roles'">
+        <app-roles></app-roles>
+    </div>
+    <div class="col-12" *ngIf="currComponent=='Design'">
+        <app-designation></app-designation>
+    </div>
+</div>

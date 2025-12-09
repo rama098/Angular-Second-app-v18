@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Client Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-boader">
+                        <thead>
+                            <tr>
+                                <th>Slno</th>
+                                <th>CName</th>
+                                <th>CEmail</th>
+                                <th>CPhone</th>
+                                <th>actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for ( item of clientList; let index = $index; track index) {
+                            <tr>
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ item.CName }}</td>
+                                <td>{{ item.CEmail }}</td>
+                                <td>{{ item.CPhone }}</td>
+                                <td><button class="btn btn-primary" type="button"
+                                        (click)="EditFunc(item);">Edit</button></td>
+                                <td><button class="btn btn-danger" type="button"
+                                        (click)="deleteFunc(item.Cid);">Delete</button></td>
+                            </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title bg-success text-white">Add Client Details</h4>
+
+                        </div>
+                        <div class="card-body">
+
+
+                            <div class="col-12">
+                                <label class="form-label">CName</label>
+                                <input #cName="ngModel" required class="form-control" minlength="3"
+                                    placeholder="Enter CName" [(ngModel)]="clients.CName" />
+                                @if(cName.touched){
+                                <div class="text-danger">
+                                    @if(cName?.errors?.['required']){
+                                    <span>This is required</span>
+                                    }
+                                    @if(cName?.errors?.['minlength']){
+                                    <span>minlength Of character Should be more than 3</span>
+                                    }
+                                </div>
+                                }
+
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">CEmail</label>
+                                <input class="form-control" #VEmail="ngModel" required placeholder="Enter CEmail"
+                                    [(ngModel)]="clients.CEmail"
+                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+                                @if(VEmail.touched){
+                                <div class="text-danger">
+                                    @if(VEmail?.errors?.['required'])
+                                    {
+                                    <span>This is Required</span>
+                                    }
+                                    @if(VEmail?.errors?.['pattern']){
+                                    <span>Enter a valid Email (example&#64;gmail.com)</span>
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">CPhone No</label>
+                                <input class="form-control" #VPhone="ngModel" required pattern="^[0-9]{10}$"
+                                    maxlength="10" placeholder="Enter CPhone No" [(ngModel)]="clients.CPhone" />
+                                @if(VPhone.touched){
+
+                                <div class="text-danger">
+                                    @if(VPhone?.errors?.['required']){
+                                    <span>This is Required</span>
+                                    }
+                                    @if(VPhone?.errors?.['pattern']){
+                                    <span>Only 10 digit number allowed</span>
+                                    }
+                                </div>
+                                }
+
+                            </div>
+                            <div class="text-end p-3">
+                                <button class="btn btn-primary" (click)="saveClient()">{{clients.Cid==0?'Save':'Update'}} </button>
+
+                                <button class="btn btn-danger" type="button" (click)="ClearFun()" *ngIf="clearBtnFlag">Clear</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
